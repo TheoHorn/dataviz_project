@@ -28,8 +28,8 @@ data = data.explode('most_memorable_characteristics')
 similar_characteristics = merge_similar_characteristics(data['most_memorable_characteristics'].unique())
 data['most_memorable_characteristics'] = data['most_memorable_characteristics'].map(similar_characteristics)
 
-# Remove characteristics with less than 5 occurrences
-data = data.groupby('most_memorable_characteristics').filter(lambda x: len(x) > 5)
+# Remove characteristics with less than 3 occurrences
+data = data.groupby('most_memorable_characteristics').filter(lambda x: len(x) > 3)
 
 # Calculate average rating for each characteristic
 average_rating = data.groupby('most_memorable_characteristics')['rating'].mean().to_dict()
