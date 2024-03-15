@@ -43,4 +43,13 @@ bins = [0, 2, 3, 4, 5, 7]
 labels = ['0-2', '2-3', '3-4', '4-5', '5-7']
 
 # Créer une nouvelle colonne 'Ingredients_Category'
-average_values_per_year['Ingredients_Category'] = pd.cut(average_values_per_year['Average_Ingredients']
+average_values_per_year['Ingredients_Category'] = pd.cut(average_values_per_year['Average_Ingredients'], bins=bins, labels=labels, right=False)
+
+
+fig = px.scatter(average_values_per_year, x="review_date", y="Average_Rating", color="Ingredients_Category", 
+                 marginal_y="violin", marginal_x="box", trendline="ols", template="simple_white")
+
+# Afficher le graphique
+fig.show()
+
+print(average_values_per_year)
