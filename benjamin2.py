@@ -49,7 +49,62 @@ average_values_per_year['Ingredients_Category'] = pd.cut(average_values_per_year
 fig = px.scatter(average_values_per_year, x="review_date", y="Average_Rating", color="Ingredients_Category", 
                  marginal_y="violin", marginal_x="box", trendline="ols", template="simple_white")
 
+fig.update_layout(plot_bgcolor='#f6eddb', paper_bgcolor='#DA8A56')
+
+# Enregistrer le graphique 
+fig.write_html("/Users/benjamincordebar/Desktop/2A/S8/VBD/viz_project/dynamic_representations/average_rating_per_year_per_ingredients.html")
+
+
+### ---------------------------------------- ###
+
+# Créer un graphique linéaire pour visualiser l'évolution du nombre d'ingrédients par année
+fig = px.line(average_values_per_year, x='review_date', y='Average_Ingredients', title='Évolution du nombre d\'ingrédients par année',
+              labels={'review_date': 'Année', 'Average_Ingredients': 'Nombre d\'ingrédients'},color_discrete_sequence=['#2b0808'])
+
+fig.update_layout(plot_bgcolor='#f6eddb', paper_bgcolor='lightgray')
+
+# Enregistrer le graphique 
+fig.write_html("/Users/benjamincordebar/Desktop/2A/S8/VBD/viz_project/dynamic_representations/average_ingredient_per_year.html")
+
+# Commentaire : clairement le nombre d'ingrédiants diminue avec le temps
+
+
+### ---------------------------------------- ###
+
+# Créer un graphique linéaire pour visualiser l'évolution de la note moyenne par année
+fig = px.line(average_values_per_year, x='review_date', y='Average_Rating', title='Évolution de la note moyenne par année',
+              labels={'review_date': 'Année', 'Average_Rating': 'Note moyenne'},color_discrete_sequence=['#2b0808'])
+
+fig.update_layout(plot_bgcolor='#f6eddb', paper_bgcolor='lightgray')
+
+# Enregistrer le graphique
+#fig.write_html("/Users/benjamincordebar/Desktop/2A/S8/VBD/viz_project/dynamic_representations/average_rating_per_year.html")
+
+
+### ---------------------------------------- ###
+
+# Calculer le coefficient de corrélation de Pearson (coefficent de corrélation de Pearson) entre le nombre d'ingrédients et la note moyenne
+correlation = average_values_per_year['Average_Ingredients'].corr(average_values_per_year['Average_Rating'])
+
+# print("Le coefficient de corrélation de Pearson est :", correlation)
+# Commentaire : prudance dans l'interprétation, la corrélation n'implique pas causalité
+
+
+### ---------------------------------------- ###
+#imshow pour visualiser la matrice de corrélation
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Calculer la matrice de corrélation
+correlation_matrix = average_values_per_year[['Average_Ingredients', 'Average_Rating']].corr()
+
+# Utiliser la fonction heatmap de seaborn pour visualiser la matrice de corrélation
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', cbar=True)
+
 # Afficher le graphique
+plt.show()
+
+# imshow avec plotly
+fig = px.imshow(correlation_matrix, color_continuous_scale='blues', title='Matrice de corrélation entre le nombre d\'ingrédients et la note moyenne')
 fig.show()
 
-print(average_values_per_year)
