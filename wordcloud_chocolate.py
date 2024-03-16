@@ -19,7 +19,7 @@ choco_mask[choco_mask.sum(axis=2) == 0] = 255
 edges = np.mean([gaussian_gradient_magnitude(choco_color[:, :, i] / 255., 2) for i in range(3)], axis=0)
 choco_mask[edges > .08] = 255
 
-wc = WordCloud(max_words=2000, mask=choco_mask, max_font_size=40, random_state=42, background_color='white')
+wc = WordCloud(max_words=2000, mask=choco_mask, max_font_size=40, random_state=42, background_color='#f6eddb')
 
 # generate word cloud
 wc.generate(' '.join(data['most_memorable_characteristics']))
@@ -33,5 +33,5 @@ plt.imshow(wc, interpolation="bilinear")
 plt.axis('off')
 
 # Save the image with higher resolution (dpi)
-plt.savefig('img/wordcloud_chocolate.png', dpi=600, bbox_inches='tight')
+plt.savefig('img/wordcloud_chocolate2.png', dpi=600, bbox_inches='tight')
 
