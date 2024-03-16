@@ -41,7 +41,7 @@ normalized_ratings = {word: (rating - min_rating) / (max_rating - min_rating) fo
 
 mask = np.array(Image.open("img/ellipse.png"))
 
-wc = WordCloud(max_words=2000, max_font_size=30, mask=mask, random_state=41,background_color='#f6eddb',colormap='autumn')
+wc = WordCloud(max_words=2000, max_font_size=30, mask=mask, random_state=41,background_color='#67595e',colormap='gist_heat')
 
 wc.generate_from_frequencies(normalized_ratings)
 
