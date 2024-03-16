@@ -28,7 +28,6 @@ for ingredient, full_name in ingredients.items():
 # Nous allons ajouter une nouvelle colonne qui compte le nombre d'ingrédients pour chaque chocolat
 data_cleaned2['Num_Ingredients'] = data_cleaned2[['Beans', 'Sugar', 'Sweetener other than sugar', 'Cocoa Butter', 'Vanilla', 'Lecithin', 'Salt']].sum(axis=1)
 
-    
 # Grouper par année ('review_date') et calculer la moyenne du nombre d'ingrédients et la moyenne des notes
 average_values_per_year = data_cleaned2.groupby('review_date').agg({'Num_Ingredients': 'mean', 'rating': 'mean'}).reset_index()
 
