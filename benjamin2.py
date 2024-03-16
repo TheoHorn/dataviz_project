@@ -91,6 +91,9 @@ correlation = average_values_per_year['Average_Ingredients'].corr(average_values
 
 
 ### ---------------------------------------- ###
+
+## -- seaborn -- ##
+
 #imshow pour visualiser la matrice de corrélation
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -98,13 +101,34 @@ import matplotlib.pyplot as plt
 # Calculer la matrice de corrélation
 correlation_matrix = average_values_per_year[['Average_Ingredients', 'Average_Rating']].corr()
 
+# Renommage des colonnes dans la matrice de corrélation pour des étiquettes plus descriptives
+correlation_matrix = correlation_matrix.rename(index={'Average_Ingredients': 'Nombre moyen d\'ingrédients', 'Average_Rating': 'Note Moyenne'},
+                                               columns={'Average_Ingredients': 'Nombre moyen d\'ingrédients', 'Average_Rating': 'Note Moyenne'})
+
+
 # Utiliser la fonction heatmap de seaborn pour visualiser la matrice de corrélation
 sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', cbar=True)
 
-# Afficher le graphique
-plt.show()
+## -- seaborn -- ##
 
+
+## -- plotly -- ##
+# Définir une échelle de couleurs personnalisée en marron
+brown_scale = [
+    [0, 'rgb(255,248,220)'],  # Cornsilk color
+    [0.5, 'rgb(210,180,140)'],  # Tan color
+    [1, '#96421D']  # Brown color
+]
 # imshow avec plotly
-fig = px.imshow(correlation_matrix, color_continuous_scale='blues', title='Matrice de corrélation entre le nombre d\'ingrédients et la note moyenne')
+fig = px.imshow(correlation_matrix, color_continuous_scale=brown_scale, text_auto=True, 
+                title='Matrice de corrélation entre le nombre d\'ingrédients et la note moyenne')
+# Mise à jour du titre et de l'étiquette de la barre de couleurs
+fig.update_layout(
+    coloraxis_colorbar=dict(
+        title='Coefficient de corrélation de Pearson',
+    )
+)
 fig.show()
+
+## -- plotly -- ##
 
